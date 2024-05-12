@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -25,7 +26,7 @@ return new class () extends Migration {
             $table->boolean('is_discount')->default(false);
             $table->decimal('discount_price', 8, 2)->nullable();
             $table->timestamp('discount_end_date')->nullable();
-            $table->enum('status', ['draft', 'published', 'hidden'])->default("draft");
+            $table->enum('status', ['draft', 'published', 'hidden'])->default('draft');
             $table->timestamps();
         });
     }

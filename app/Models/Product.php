@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 use Filament\Forms;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Get;
-use Filament\Forms\Set;
-use Illuminate\Support\Str;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Str;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class Product extends Model
 {
@@ -91,8 +89,8 @@ class Product extends Model
                             ->label('Product Price')
                             ->numeric()
                             ->prefix('$')
-                            ->required()
-                        ]),
+                            ->required(),
+                    ]),
 
                 Forms\Components\Toggle::make('is_discount')
                     ->default(false)
@@ -114,7 +112,7 @@ class Product extends Model
                             ->label('End Date')
                             ->format('d-m-Y')
                             ->native(false)
-                            ->required(fn (Get $get) => $get('is_discount'))
+                            ->required(fn (Get $get) => $get('is_discount')),
                     ]),
 
                 Forms\Components\RichEditor::make('description')->required(),
@@ -129,11 +127,10 @@ class Product extends Model
                     ->required(),
 
                 Forms\Components\Toggle::make('is_available')
-                    ->required()
+                    ->required(),
             ]),
         ];
     }
-
 
     public static function getTableColumns(): array
     {
@@ -155,22 +152,22 @@ class Product extends Model
                 ->sortable(),
 
             Tables\Columns\IconColumn::make('is_available')
-                ->label("Available")
+                ->label('Available')
                 ->boolean(),
 
             Tables\Columns\TextColumn::make('base_price')
-                ->label("Unit Price")
-                ->money("USD")
+                ->label('Unit Price')
+                ->money('USD')
                 ->sortable(),
 
             Tables\Columns\TextColumn::make('discount_price')
-                ->label("Discount")
+                ->label('Discount')
                 ->default('-')
-                ->money("USD")
+                ->money('USD')
                 ->sortable(),
 
             Tables\Columns\TextColumn::make('discount_end_date')
-                ->label("End Date")
+                ->label('End Date')
                 ->date()
                 ->sortable(),
 
@@ -181,9 +178,9 @@ class Product extends Model
                 ->icon(static function (string $state): string {
                     if ($state === 'published') {
                         return 'heroicon-o-check-circle';
-                    } elseif($state === "hidden") {
+                    } elseif ($state === 'hidden') {
                         return 'heroicon-o-x-circle';
-                    } elseif($state === "draft") {
+                    } elseif ($state === 'draft') {
                         return 'heroicon-o-pencil';
                     }
 
@@ -191,7 +188,7 @@ class Product extends Model
                 })
                 ->color(
                     fn (string $state): string => match ($state) {
-                        "hidden" => 'danger',
+                        'hidden' => 'danger',
                         'published' => 'success',
                         'draft' => 'warning',
                         default => 'primary'
@@ -207,6 +204,6 @@ class Product extends Model
                 ->dateTime()
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),
-            ];
+        ];
     }
 }

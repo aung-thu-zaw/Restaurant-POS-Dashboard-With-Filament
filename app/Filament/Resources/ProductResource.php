@@ -3,21 +3,16 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
-use Filament\Tables\Actions\Action;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
 
 class ProductResource extends Resource
 {
@@ -34,23 +29,23 @@ class ProductResource extends Resource
     {
         return $table
             ->columns(Product::getTableColumns())
-            ->defaultSort("id", "desc")
+            ->defaultSort('id', 'desc')
             ->filtersTriggerAction(fn ($action) => $action->button()->label('Filters'))
             ->filters([
-                TernaryFilter::make("is_available")->label("Is Available ?"),
+                TernaryFilter::make('is_available')->label('Is Available ?'),
                 SelectFilter::make('status')
-                ->label('Product Status')
-                ->options([
-                    'published' => 'Published',
-                    'draft' => 'Draft',
-                    'hidden' => 'Hidden',
-                ]),
+                    ->label('Product Status')
+                    ->options([
+                        'published' => 'Published',
+                        'draft' => 'Draft',
+                        'hidden' => 'Hidden',
+                    ]),
                 SelectFilter::make('category_id')
-                ->label('Category')
-                ->relationship("category", "name")
-                ->searchable()
-                ->multiple()
-                ->preload(),
+                    ->label('Category')
+                    ->relationship('category', 'name')
+                    ->searchable()
+                    ->multiple()
+                    ->preload(),
             ])
             ->actions([
                 ActionGroup::make([
@@ -78,7 +73,7 @@ class ProductResource extends Resource
                         ->after(function () {
                             Notification::make()->success()->title('This product was published.')->send();
                         }),
-                ])->icon("heroicon-o-cog-6-tooth"),
+                ])->icon('heroicon-o-cog-6-tooth'),
             ])
 
             ->bulkActions([
