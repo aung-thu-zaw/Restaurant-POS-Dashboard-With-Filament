@@ -35,24 +35,13 @@ class Category extends Model
     {
         return [
             Forms\Components\Section::make()
-                ->columns(2)
                 ->schema([
-                    Forms\Components\TextInput::make('name')
+                        Forms\Components\TextInput::make('name')
                         ->label('Category Name')
                         ->unique(ignoreRecord: true)
-                        ->required()
-                        ->live(onBlur: true)
-                        ->afterStateUpdated(function (string $operation, $state, Set $set) {
-                            if ($operation !== 'create') {
-                                return;
-                            }
+                        ->required(),
 
-                            $set('slug', Str::slug($state));
-                        }),
-
-                    Forms\Components\TextInput::make('slug')->unique(ignoreRecord: true)->required(),
-
-                    Forms\Components\Toggle::make('status')->required(),
+                        Forms\Components\Toggle::make('status')->required(),
                 ]),
         ];
     }

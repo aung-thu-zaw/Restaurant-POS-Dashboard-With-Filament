@@ -19,11 +19,13 @@ return new class () extends Migration {
             $table->string('ingredients')->nullable();
             $table->text('description');
             $table->integer('qty')->default(0);
+            $table->integer('stock_alert')->default(0);
             $table->boolean('is_available')->default(false);
             $table->decimal('base_price', 8, 2)->default(0);
-            $table->decimal('discount_price', 8, 2)->default(0)->nullable();
-            $table->timestamp('discount_end_time')->nullable();
-            $table->enum('status', ['draft', 'published', 'hidden']);
+            $table->boolean('is_discount')->default(false);
+            $table->decimal('discount_price', 8, 2)->nullable();
+            $table->timestamp('discount_end_date')->nullable();
+            $table->enum('status', ['draft', 'published', 'hidden'])->default("draft");
             $table->timestamps();
         });
     }

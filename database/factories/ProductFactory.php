@@ -29,6 +29,7 @@ class ProductFactory extends Factory
             'is_available' => fake()->boolean(),
             'base_price' => fake()->numberBetween(10, 1000),
             'discount_price' => fake()->numberBetween(5, 200),
+            'discount_end_date' => fake()->dateTimeBetween(now(), "+2 weeks"),
             'status' => fake()->randomElement(['draft', 'published', 'hidden']),
         ];
     }
