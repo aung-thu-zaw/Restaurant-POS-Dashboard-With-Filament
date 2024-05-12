@@ -17,7 +17,9 @@ class AddonFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'product_id' => fake()->numberBetween(1, 50),
+            'name' => fake()->randomElement(['Extra Sauce', 'Double Portion', 'Gluten-Free Option', 'Vegan Option', 'Spicy Level: Mild', 'Spicy Level: Medium', 'Spicy Level: Hot', 'Extra Cheese', 'Add Bacon', 'Add Avocado']),
+            'additional_price' => fake()->numberBetween(1, 50),
         ];
     }
 }
