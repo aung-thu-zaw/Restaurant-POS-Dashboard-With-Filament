@@ -806,6 +806,8 @@ class ProductSeeder extends Seeder
             ],
         ]);
 
-        $products->each(fn (Product $product) => Product::factory()->create($product));
+        $products = $products->shuffle();
+
+        $products->each(fn ($product) => Product::factory()->create($product));
     }
 }

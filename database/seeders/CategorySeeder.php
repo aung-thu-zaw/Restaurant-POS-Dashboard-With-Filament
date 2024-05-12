@@ -25,6 +25,6 @@ class CategorySeeder extends Seeder
             ['name' => 'Drinks', 'status' => true],
         ]);
 
-        $categories->each(fn (Category $category) => Category::factory()->create($category));
+        $categories->each(fn ($category) => Category::factory()->create($category));
     }
 }
