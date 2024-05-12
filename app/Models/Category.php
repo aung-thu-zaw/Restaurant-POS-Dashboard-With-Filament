@@ -10,6 +10,7 @@ use Spatie\Sluggable\SlugOptions;
 use Filament\Forms;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
+use Filament\Tables;
 
 class Category extends Model
 {
@@ -43,6 +44,40 @@ class Category extends Model
 
                         Forms\Components\Toggle::make('status')->required(),
                 ]),
+        ];
+    }
+
+    public static function getTableColumns(): array
+    {
+        return [
+            Tables\Columns\TextColumn::make('name')
+                ->sortable()
+                ->searchable(),
+
+            Tables\Columns\TextColumn::make('slug')
+                ->sortable()
+                ->searchable(),
+
+            Tables\Columns\TextColumn::make('status')
+                ->sortable()
+                ->formatStateUsing(fn (string $state): string => $state ? 'Active' : 'Inactive')
+                ->badge()
+                ->color(
+                    fn (bool $state): string => match ($state) {
+                        true => 'info',
+                        false => 'danger',
+                    },
+                ),
+
+            Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+
+            Tables\Columns\TextColumn::make('updated_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
         ];
     }
 }

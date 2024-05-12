@@ -13,15 +13,19 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory()->create(['name' => 'Main Courses', 'status' => true]);
-        Category::factory()->create(['name' => 'Salads', 'status' => true]);
-        Category::factory()->create(['name' => 'Seafood', 'status' => true]);
-        Category::factory()->create(['name' => 'Desserts', 'status' => true]);
-        Category::factory()->create(['name' => 'Breakfast', 'status' => true]);
-        Category::factory()->create(['name' => 'Kids Menu', 'status' => true]);
-        Category::factory()->create(['name' => 'Burgers', 'status' => true]);
-        Category::factory()->create(['name' => 'Pasta', 'status' => true]);
-        Category::factory()->create(['name' => 'Vegetarian', 'status' => true]);
-        Category::factory()->create(['name' => 'Drinks', 'status' => true]);
+        $categories = collect([
+            ['name' => 'Main Courses', 'status' => true],
+            ['name' => 'Salads', 'status' => true],
+            ['name' => 'Seafood', 'status' => true],
+            ['name' => 'Desserts', 'status' => true],
+            ['name' => 'Breakfast', 'status' => true],
+            ['name' => 'Kids Menu', 'status' => true],
+            ['name' => 'Burgers', 'status' => true],
+            ['name' => 'Pasta', 'status' => true],
+            ['name' => 'Vegetarian', 'status' => true],
+            ['name' => 'Drinks', 'status' => true],
+        ]);
+
+        $categories->each(fn (Category $category) => Category::factory()->create($category));
     }
 }

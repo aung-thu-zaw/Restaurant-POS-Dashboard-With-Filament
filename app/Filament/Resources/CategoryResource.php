@@ -29,32 +29,7 @@ class CategoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->sortable()
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->sortable()
-                    ->formatStateUsing(fn (string $state): string => $state ? 'Active' : 'Inactive')
-                    ->badge()
-                    ->color(
-                        fn (bool $state): string => match ($state) {
-                            true => 'info',
-                            false => 'danger',
-                        },
-                    ),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ->columns(Category::getTableColumns())
             ->defaultSort("id", "desc")
             ->filtersTriggerAction(fn ($action) => $action->button()->label('Filters'))
             ->filters([

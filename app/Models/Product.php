@@ -13,6 +13,7 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Illuminate\Support\Str;
+use Filament\Tables;
 
 class Product extends Model
 {
@@ -133,13 +134,79 @@ class Product extends Model
         ];
     }
 
-    //     Forms\Components\Toggle::make('is_available')
-    //         ->required(),
 
-    //     Forms\Components\DateTimePicker::make('discount_end_time'),
-    //     Forms\Components\TextInput::make('status')
-    //         ->required(),
+    public static function getTableColumns(): array
+    {
+        return [
+            Tables\Columns\TextColumn::make('category.name')
+                ->numeric()
+                ->sortable(),
 
-    //     ]
-    // }
+            Tables\Columns\ImageColumn::make('image')
+                ->square(),
+
+            Tables\Columns\TextColumn::make('name')
+                ->description(fn (Product $record): string => $record->ingredients ? Str::limit($record->ingredients, 60) : '')
+                ->sortable()
+                ->searchable(),
+
+            Tables\Columns\TextColumn::make('qty')
+                ->numeric()
+                ->sortable(),
+
+            Tables\Columns\IconColumn::make('is_available')
+                ->label("Available")
+                ->boolean(),
+
+            Tables\Columns\TextColumn::make('base_price')
+                ->label("Unit Price")
+                ->money("USD")
+                ->sortable(),
+
+            Tables\Columns\TextColumn::make('discount_price')
+                ->label("Discount")
+                ->default('-')
+                ->money("USD")
+                ->sortable(),
+
+            Tables\Columns\TextColumn::make('discount_end_date')
+                ->label("End Date")
+                ->date()
+                ->sortable(),
+
+            Tables\Columns\TextColumn::make('status')
+                ->sortable()
+                ->badge()
+                ->formatStateUsing(fn ($state) => ucwords($state))
+                ->icon(static function (string $state): string {
+                    if ($state === 'published') {
+                        return 'heroicon-o-check-circle';
+                    } elseif($state === "hidden") {
+                        return 'heroicon-o-x-circle';
+                    } elseif($state === "draft") {
+                        return 'heroicon-o-pencil';
+                    }
+
+                    return 'heroicon-o-pencil';
+                })
+                ->color(
+                    fn (string $state): string => match ($state) {
+                        "hidden" => 'danger',
+                        'published' => 'success',
+                        'draft' => 'warning',
+                        default => 'primary'
+                    },
+                ),
+
+            Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+
+            Tables\Columns\TextColumn::make('updated_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            ];
+    }
 }
