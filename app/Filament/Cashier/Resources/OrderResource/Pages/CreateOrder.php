@@ -59,7 +59,7 @@ class CreateOrder extends CreateRecord
                 if ($product->qty <= $product->stock_alert) {
                     Notification::make()
                         ->title('Low Stock Alert')
-                        ->body("The stock for ' . $product->name . ' is low. Current quantity: ' . $product->qty")
+                        ->body("The stock for $product->name is low. Current quantity: $product->qty")
                         ->sendToDatabase($superAdmin);
                 }
 
