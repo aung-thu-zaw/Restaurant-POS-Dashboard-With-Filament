@@ -13,7 +13,7 @@ class Order extends Model
 
     public function cashier(): BelongsTo
     {
-        return $this->belongsTo(User::class, "cashier_id");
+        return $this->belongsTo(User::class, 'cashier_id');
     }
 
     public function orderItems(): HasMany

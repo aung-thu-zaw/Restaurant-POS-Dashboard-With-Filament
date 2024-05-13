@@ -5,9 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Filament\Forms;
-use Filament\Tables;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Filament\Tables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,10 +46,10 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        if($panel->getId() === "admin") {
-            return $this->role === "admin";
-        } elseif($panel->getId() === "cashier") {
-            return $this->role === "cashier";
+        if ($panel->getId() === 'admin') {
+            return $this->role === 'admin';
+        } elseif ($panel->getId() === 'cashier') {
+            return $this->role === 'cashier';
         }
 
         return false;
@@ -86,7 +86,7 @@ class User extends Authenticatable implements FilamentUser
                     Forms\Components\TextInput::make('password')
                         ->password()
                         ->required()
-                        ->hidden(fn ($operation): bool => $operation === "edit")
+                        ->hidden(fn ($operation): bool => $operation === 'edit'),
                 ]),
         ];
     }
@@ -118,6 +118,7 @@ class User extends Authenticatable implements FilamentUser
                     } elseif ($state === 'suspended') {
                         return 'heroicon-o-x-circle';
                     }
+
                     return 'heroicon-o-x-circle';
                 })
                 ->color(
@@ -136,7 +137,7 @@ class User extends Authenticatable implements FilamentUser
             Tables\Columns\TextColumn::make('updated_at')
                 ->dateTime()
                 ->sortable()
-                ->toggleable(isToggledHiddenByDefault: true)
+                ->toggleable(isToggledHiddenByDefault: true),
         ];
     }
 }

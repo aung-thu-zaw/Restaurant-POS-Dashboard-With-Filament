@@ -14,7 +14,6 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Wizard\Step;
-use Filament\Infolists\Components\Actions\Action as InfolistAction;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -29,7 +28,6 @@ use Filament\Tables;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class OrderResource extends Resource
@@ -133,7 +131,7 @@ class OrderResource extends Resource
 
                         Fieldset::make('Customer Information (Optional)')->schema([
                             Forms\Components\TextInput::make('customer_name'),
-                            Forms\Components\TextInput::make('customer_phone')->tel()
+                            Forms\Components\TextInput::make('customer_phone')->tel(),
                         ]),
                     ]),
             ])->columnSpanFull(),
@@ -185,6 +183,7 @@ class OrderResource extends Resource
                         } elseif ($state === 'pending') {
                             return 'heroicon-o-arrow-path';
                         }
+
                         return 'heroicon-arrow-path';
                     })
                     ->color(
@@ -210,6 +209,7 @@ class OrderResource extends Resource
                         } elseif ($state === 'cancelled') {
                             return 'heroicon-o-x-circle';
                         }
+
                         return 'heroicon-arrow-path';
                     })
                     ->color(
@@ -259,7 +259,6 @@ class OrderResource extends Resource
                         }),
                 ])->icon('heroicon-o-cog-6-tooth'),
 
-
                 ActionGroup::make([
 
                     // Action::make("download")
@@ -270,8 +269,7 @@ class OrderResource extends Resource
                     //     }),
 
                     ViewAction::make()->color('info'),
-                ])
-
+                ]),
 
             ])
             ->bulkActions([]);
@@ -301,9 +299,9 @@ class OrderResource extends Resource
                                 ->label('Customer Phone Number'),
 
                             TextEntry::make('note')
-                                 ->default('-')
-                                 ->label('Order Note')
-                                 ->columnSpanFull()
+                                ->default('-')
+                                ->label('Order Note')
+                                ->columnSpanFull(),
                         ])
                         ->columnSpanFull()
                         ->columns(2),
@@ -324,6 +322,7 @@ class OrderResource extends Resource
                                     } elseif ($state === 'pending') {
                                         return 'heroicon-o-arrow-path';
                                     }
+
                                     return 'heroicon-arrow-path';
                                 })
                                 ->color(
@@ -347,10 +346,10 @@ class OrderResource extends Resource
 
                         TextEntry::make('total_amount')
                             ->label('Total Item Amount')
-                            ->money("USD")
+                            ->money('USD'),
                     ])
-                    ->columnSpanFull()
-                    ->columns(2),
+                        ->columnSpanFull()
+                        ->columns(2),
                 ]),
         ]);
     }
@@ -358,8 +357,8 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-                OrderItemsRelationManager::class,
-            ];
+            OrderItemsRelationManager::class,
+        ];
     }
 
     public static function getPages(): array

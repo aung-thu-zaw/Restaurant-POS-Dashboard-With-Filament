@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
             'status' => 'active',
         ]);
 
-        User::factory(10)->create(["role" => "cashier"]);
+        User::factory(10)->create(['role' => 'cashier']);
 
         User::factory(50)->create();
     }

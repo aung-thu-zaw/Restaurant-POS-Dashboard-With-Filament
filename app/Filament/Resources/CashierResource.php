@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CashierResource\Pages;
 use App\Models\User;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -35,7 +34,7 @@ class CashierResource extends Resource
             ->filters([
                 //
             ])
-            ->defaultSort("id", "desc")
+            ->defaultSort('id', 'desc')
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

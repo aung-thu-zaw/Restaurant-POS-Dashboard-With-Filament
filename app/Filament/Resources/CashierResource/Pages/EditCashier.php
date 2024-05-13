@@ -3,8 +3,6 @@
 namespace App\Filament\Resources\CashierResource\Pages;
 
 use App\Filament\Resources\CashierResource;
-use App\Filament\Resources\UserResource;
-use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
 

@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
+return new class() extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -12,7 +13,7 @@ return new class () extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cashier_id')->constrained("users");
+            $table->foreignId('cashier_id')->constrained('users');
             $table->string('order_no');
             $table->string('invoice_no');
             $table->integer('product_qty');
@@ -24,7 +25,7 @@ return new class () extends Migration {
             $table->string('customer_name')->nullable();
             $table->string('customer_phone')->nullable();
             $table->string('note')->nullable();
-            $table->enum('status', ['pending','completed', 'cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'completed', 'cancelled'])->default('pending');
             $table->timestamps();
         });
     }
