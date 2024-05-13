@@ -4,6 +4,7 @@ namespace App\Filament\Cashier\Resources;
 
 use App\Filament\Cashier\Resources\OrderResource\Pages;
 use App\Filament\Cashier\Resources\OrderResource\RelationManagers\OrderItemsRelationManager;
+use App\Filament\Cashier\Resources\OrderResource\Widgets\OrderStatsWidget;
 use App\Models\Order;
 use App\Models\Product;
 use Awcodes\TableRepeater\Components\TableRepeater;
@@ -140,8 +141,6 @@ class OrderResource extends Resource
 
     public static function table(Table $table): Table
     {
-        // $table->enum('status', ['pending','completed', 'cancelled'])->default('pending');
-
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('order_no')
@@ -221,11 +220,11 @@ class OrderResource extends Resource
                         },
                     ),
             ])
+            ->defaultSort("id", "desc")
             ->filters([
                 //
             ])
             ->actions([
-
                 ActionGroup::make([
                     Action::make('cancelled_order')
                         ->label('Cancel Order')
@@ -353,6 +352,15 @@ class OrderResource extends Resource
                 ]),
         ]);
     }
+
+
+    public static function getWidgets(): array
+    {
+        return [
+            OrderStatsWidget::class,
+        ];
+    }
+
 
     public static function getRelations(): array
     {

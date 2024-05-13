@@ -26,7 +26,7 @@ class CashierPanelProvider extends PanelProvider
             ->id('cashier')
             ->path('cashier')
             ->login()
-            // ->darkMode(true, true)
+            ->darkMode(true)
             ->brandName('Restaurant POS')
             ->colors([
                 'primary' => Color::Orange,
@@ -34,10 +34,10 @@ class CashierPanelProvider extends PanelProvider
             ])
             ->discoverResources(in: app_path('Filament/Cashier/Resources'), for: 'App\\Filament\\Cashier\\Resources')
             ->discoverPages(in: app_path('Filament/Cashier/Pages'), for: 'App\\Filament\\Cashier\\Pages')
-            ->pages([
-                Pages\Dashboard::class,
-            ])
-            ->sidebarCollapsibleOnDesktop()
+            // ->pages([
+            //     Pages\Dashboard::class,
+            // ])
+            ->sidebarFullyCollapsibleOnDesktop()
             ->discoverWidgets(in: app_path('Filament/Cashier/Widgets'), for: 'App\\Filament\\Cashier\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
